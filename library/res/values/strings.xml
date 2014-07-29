@@ -32,7 +32,7 @@
 
     <!-- From AOSP -->
     <!-- Label for button to confirm chosen date or time [CHAR LIMIT=30] -->
-    <string name="done_label">Done</string>
+    <string name="done_label">OK</string>
     <!--
          Content description for the hour selector in the time picker, which displays
          selectable hours of the day along the inside edge of a circle, as in an analog clock.
@@ -91,7 +91,7 @@
     <string name="acessibility_recurrence_choose_end_date_description">change end date</string>
 
     <!-- The button label for saving an event -->
-    <string name="save_label">Done</string>
+    <string name="save_label">OK</string>
 
     <!-- Specifies that a repeating event to repeat forever (based on the defined frequency) instead of ending at a future date[CHAR LIMIT=20] -->
     <string name="recurrence_end_continously">Forever</string>

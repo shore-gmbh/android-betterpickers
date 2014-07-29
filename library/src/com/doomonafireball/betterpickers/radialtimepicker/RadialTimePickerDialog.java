@@ -72,6 +72,7 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
     private static final int PULSE_ANIMATOR_DELAY = 300;
 
     private OnDialogDismissListener mDimissCallback;
+    private OnCancelListener mCancelListener;
     private OnTimeSetListener mCallback;
 
     private HapticFeedbackController mHapticFeedbackController;
@@ -112,6 +113,8 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
     private String mSelectHours;
     private String mMinutePickerDescription;
     private String mSelectMinutes;
+    
+    private boolean valueSet = false;
 
     /**
      * The callback interface used to indicate the user is done filling in the time (they clicked on the 'Set' button).
@@ -131,7 +134,20 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
         public abstract void onDialogDismiss(DialogInterface dialoginterface);
     }
 
-    public static RadialTimePickerDialog newInstance(OnTimeSetListener callback,
+    public static interface OnCancelListener {
+    	public abstract void onCancel();
+    }
+    
+        
+    public OnCancelListener getCancelListener() {
+		return mCancelListener;
+	}
+
+	public void setCancelListener(OnCancelListener cancelListener) {
+		this.mCancelListener = cancelListener;
+	}
+	
+	public static RadialTimePickerDialog newInstance(OnTimeSetListener callback,
             int hourOfDay, int minute, boolean is24HourMode) {
         RadialTimePickerDialog ret = new RadialTimePickerDialog();
         ret.initialize(callback, hourOfDay, minute, is24HourMode);
@@ -184,6 +200,8 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
         if (mDimissCallback != null) {
             mDimissCallback.onDialogDismiss(dialoginterface);
         }
+        if(mCancelListener != null && !valueSet)
+        	mCancelListener.onCancel();
     }
 
     @Override
@@ -278,6 +296,7 @@ public class RadialTimePickerDialog extends DialogFragment implements OnValueSel
                     mCallback.onTimeSet(RadialTimePickerDialog.this,
                             mTimePicker.getHours(), mTimePicker.getMinutes());
                 }
+                valueSet = true;
                 dismiss();
             }
         });

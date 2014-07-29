@@ -91,6 +91,7 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     private DayPickerView mDayPickerView;
     private YearPickerView mYearPickerView;
     private Button mDoneButton;
+    private int mDoneText = -1;
 
     private int mCurrentView = UNINITIALIZED;
 
@@ -241,6 +242,8 @@ public class CalendarDatePickerDialog extends DialogFragment implements
         mAnimator.setOutAnimation(animation2);
 
         mDoneButton = (Button) view.findViewById(R.id.done);
+        if(mDoneText > 0)
+        	mDoneButton.setText(mDoneText);
         mDoneButton.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -279,6 +282,10 @@ public class CalendarDatePickerDialog extends DialogFragment implements
     public void onPause() {
         super.onPause();
         mHapticFeedbackController.stop();
+    }
+    
+    public void setDoneText(int textRes) {
+    	mDoneText = textRes;
     }
 
     private void setCurrentView(final int viewIndex) {
